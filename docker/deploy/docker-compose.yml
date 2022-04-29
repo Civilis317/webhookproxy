@@ -1,9 +1,9 @@
 version: "3"
 
 services:
-  countryservice:
+  webhookproxy:
     image: _DOCKER_REGISTRY_/webhookproxy:1.0.0-SNAPSHOT
-    container_name: countryservice
+    container_name: webhookproxy
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
