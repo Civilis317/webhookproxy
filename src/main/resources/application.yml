@@ -3,7 +3,7 @@ server:
   servlet:
     context-path: /webhookproxy/api
   error:
-    include-message: always
+    include-message: never
   tomcat:
     remoteip:
       remote-ip-header: x-forwarded-for
