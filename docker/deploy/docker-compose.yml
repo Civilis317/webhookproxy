@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  countryservice:
+    image: _DOCKER_REGISTRY_/webhookproxy:1.0.0-SNAPSHOT
+    container_name: countryservice
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - "TZ=Europe/Amsterdam"
+      - "LOGLEVEL_SPRING=_LOGLEVEL_SPRING_"
+      - "LOGLEVEL_APPLICATION=_LOGLEVEL_APPLICATION_"
+      - "TARGET_URL=_TARGET_URL_"
+      - "TARGET_URL=_TARGET_URL_"
+    ports:
+      - "_WEBHOOK_PROXY_PORT_:8080"
