@@ -24,14 +24,12 @@ public class ValidationService {
     private static final String SIGNATURE_PREFIX = "sha256=";
     private static final String HMAC_SHA_ALGORITHM = "HmacSHA256";
 
-    @Value("github.secret")
+    @Value("${github.secret}")
     private String secretToken;
 
     public void validateSignature(HttpServletRequest request) throws IOException {
-        StringBuffer sb = new StringBuffer();
 
-        request.getReader().lines().forEach(s -> sb.append(s).append("\n"));
-        String payload = sb.toString().trim();
+        String payload = request.getReader().lines().collect(Collectors.joining("\n"));
         try {
             if (!validateSignature256(request.getHeader("X-Hub-Signature-256"), payload, request.getCharacterEncoding())) {
                 throw new ValidationException("signature validation failed");
