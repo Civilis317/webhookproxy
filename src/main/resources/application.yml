@@ -42,6 +42,9 @@ management:
   server:
     port: 8090
 
+github:
+  secret: ${GITHUB_SECRET}
+
 target:
   url: ${TARGET_URL}
   token: ${TARGET_TOKEN}
