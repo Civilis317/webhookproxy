@@ -3,6 +3,7 @@ package org.boip.util.webhookproxy.validation;
 import lombok.extern.slf4j.Slf4j;
 import org.boip.util.webhookproxy.exception.DecoderException;
 import org.boip.util.webhookproxy.exception.ValidationException;
+import org.boip.util.webhookproxy.util.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,11 @@ public class ValidationService {
 
         if (secretToken == null || secretToken.equals("")) {
             log.error("webhookSecret not configured. Skip signature validation");
+            return false;
+        }
+
+        if (StringUtils.isEmpty(signatureHeader)) {
+            log.error("No signature header");
             return false;
         }
 
