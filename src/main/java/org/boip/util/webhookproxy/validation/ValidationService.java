@@ -3,20 +3,15 @@ package org.boip.util.webhookproxy.validation;
 import lombok.extern.slf4j.Slf4j;
 import org.boip.util.webhookproxy.exception.DecoderException;
 import org.boip.util.webhookproxy.exception.ValidationException;
-import org.boip.util.webhookproxy.rest.model.WebhookMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,20 +22,19 @@ public class ValidationService {
     @Value("${github.secret}")
     private String secretToken;
 
-    public void validateSignature(HttpServletRequest request) throws IOException {
-
-        String payload = request.getReader().lines().collect(Collectors.joining("\n"));
-        try {
-            if (!validateSignature256(request.getHeader("X-Hub-Signature-256"), payload, request.getCharacterEncoding())) {
+    public void validateSignature(String signatureHeader, String payload, String encoding) {
+       try {
+            if (!compareSignatures(signatureHeader, payload, encoding)) {
                 throw new ValidationException("signature validation failed");
             }
         } catch (UnsupportedEncodingException e) {
             throw new ValidationException("unable to validate signature");
 
         }
+        log.info("signature validation ok");
     }
 
-    private boolean validateSignature256(String signatureHeader, String payload, String encoding) throws UnsupportedEncodingException {
+    private boolean compareSignatures(String signatureHeader, String payload, String encoding) throws UnsupportedEncodingException {
 
         if (secretToken == null || secretToken.equals("")) {
             log.error("webhookSecret not configured. Skip signature validation");
@@ -81,8 +75,8 @@ public class ValidationService {
 
     private static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
             if (hex.length() == 1) {
                 hexString.append('0');
             }
