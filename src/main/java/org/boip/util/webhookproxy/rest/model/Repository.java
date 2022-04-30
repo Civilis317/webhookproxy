@@ -1,5 +1,6 @@
 package org.boip.util.webhookproxy.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -11,7 +12,9 @@ public class Repository {
     private String node_id;
     private String name;
     private String full_name;
-    private boolean myprivate;
+
+    @JsonProperty("private")
+    private boolean _private;
     private Owner owner;
     private String html_url;
     private String description;
