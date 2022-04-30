@@ -30,7 +30,7 @@ public class ValidationService {
     public void validateSignature(HttpServletRequest request) throws IOException {
         StringBuffer sb = new StringBuffer();
 
-        request.getReader().lines().forEach(s -> sb.append(s).append(""));
+        request.getReader().lines().forEach(s -> sb.append(s).append("\n"));
         String payload = sb.toString().trim();
         try {
             if (!validateSignature256(request.getHeader("X-Hub-Signature-256"), payload, request.getCharacterEncoding())) {
