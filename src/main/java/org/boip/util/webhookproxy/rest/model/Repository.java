@@ -11,7 +11,7 @@ public class Repository {
     private String name;
 
     @JsonProperty("full_name")
-    private String fullNname;
+    private String fullName;
     private String description;
     private String url;
 

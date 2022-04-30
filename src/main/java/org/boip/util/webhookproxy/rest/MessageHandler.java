@@ -28,10 +28,10 @@ public class MessageHandler {
     private void initComponent() {
         httpHeaders = new HttpHeaders();
         httpHeaders.add(HEADER_NAME_CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        httpHeaders.add(HEADER_NAME_TOKEN, targetConfig.getToken());
     }
 
     public String relayMessage(WebhookMessage webhookMessage) {
+        httpHeaders.add(HEADER_NAME_TOKEN, webhookMessage.getRepository().getName());
         HttpEntity<WebhookMessage> httpEntity = new HttpEntity<>(webhookMessage, httpHeaders);
         ResponseEntity<String> responseEntity = restTemplateBuilder
                 .build()

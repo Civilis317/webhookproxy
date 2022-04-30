@@ -47,7 +47,6 @@ github:
 
 target:
   url: ${TARGET_URL}
-  token: ${TARGET_TOKEN}
 
 app:
   skip_validation: ${SKIP_VALIDATION:false}

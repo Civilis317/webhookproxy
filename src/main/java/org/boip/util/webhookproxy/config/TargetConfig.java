@@ -9,5 +9,4 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("target")
 public class TargetConfig {
     private String url;
-    private String token;
 }
