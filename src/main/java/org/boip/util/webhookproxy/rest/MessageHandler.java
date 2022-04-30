@@ -31,6 +31,7 @@ public class MessageHandler {
     }
 
     public String relayMessage(WebhookMessage webhookMessage) {
+        log.info("calling jenkins with token: {}", webhookMessage.getRepository().getName());
         httpHeaders.add(HEADER_NAME_TOKEN, webhookMessage.getRepository().getName());
         HttpEntity<WebhookMessage> httpEntity = new HttpEntity<>(webhookMessage, httpHeaders);
         ResponseEntity<String> responseEntity = restTemplateBuilder
