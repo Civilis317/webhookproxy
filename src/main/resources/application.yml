@@ -12,6 +12,7 @@ server:
 logging:
   level:
     org.springframework: ${LOGLEVEL_SPRING:INFO}
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
     org.boip.util.webhookproxy: ${LOGLEVEL_APPLICATION:INFO}
 
 management:
