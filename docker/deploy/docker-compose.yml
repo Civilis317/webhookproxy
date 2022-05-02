@@ -8,9 +8,12 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       - "TZ=Europe/Amsterdam"
+      - "LOGFILE_PATH=/volume/logs"
       - "LOGLEVEL_SPRING=_LOGLEVEL_SPRING_"
       - "LOGLEVEL_APPLICATION=_LOGLEVEL_APPLICATION_"
       - "TARGET_URL=_TARGET_URL_"
       - "GITHUB_SECRET=_GITHUB_SECRET_"
+    volumes:
+      - ./volume/logs:/volume/logs
     ports:
       - "_WEBHOOK_PROXY_PORT_:8080"

@@ -1,6 +1,20 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
+<!--    <property name="LOG_DIR" value="/Users/civilis/Data/code/webhookproxy/log" />-->
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGFILE_PATH}/webhookproxy.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGFILE_PATH}/webhookproxy.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1kB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <appender name="STDOUT-TRACE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>trace</level>
@@ -62,6 +76,7 @@
         <appender-ref ref="STDOUT-INFO"/>
         <appender-ref ref="STDOUT-WARN"/>
         <appender-ref ref="STDOUT-ERROR"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>
