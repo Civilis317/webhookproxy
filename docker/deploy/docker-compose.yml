@@ -2,7 +2,7 @@ version: "3"
 
 services:
   webhookproxy:
-    image: _DOCKER_REGISTRY_/webhookproxy:1.1.0-SNAPSHOT
+    image: _DOCKER_REGISTRY_/org.homelab.artifact.webhookproxy:1.1.0-SNAPSHOT
     container_name: webhookproxy
     extra_hosts:
       - "host.docker.internal:host-gateway"

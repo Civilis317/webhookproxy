@@ -2,8 +2,8 @@
 
 # init
 DOCKER_REGISTRY=_DOCKER_REGISTRY_
-BASE_IMAGE=$DOCKER_REGISTRY/openjdk11-alpine:11.0.6
-IMAGE_NAME=webhookproxy
+BASE_IMAGE=$DOCKER_REGISTRY/org.homelab.openjdk-jre:11
+IMAGE_NAME=org.homelab.artifact.webhookproxy
 VERSION=1.1.0-SNAPSHOT
 
 # build new image
